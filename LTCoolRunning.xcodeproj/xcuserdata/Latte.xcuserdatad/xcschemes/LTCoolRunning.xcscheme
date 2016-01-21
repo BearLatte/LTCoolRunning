@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E70C1101C50FECC00BDCB3D"
+               BlueprintIdentifier = "8ECD930E1C5131B4000FF245"
                BuildableName = "LTCoolRunning.app"
                BlueprintName = "LTCoolRunning"
                ReferencedContainer = "container:LTCoolRunning.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E70C1291C50FECC00BDCB3D"
+               BlueprintIdentifier = "8ECD93271C5131B4000FF245"
                BuildableName = "LTCoolRunningTests.xctest"
                BlueprintName = "LTCoolRunningTests"
                ReferencedContainer = "container:LTCoolRunning.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E70C1341C50FECC00BDCB3D"
+               BlueprintIdentifier = "8ECD93321C5131B4000FF245"
                BuildableName = "LTCoolRunningUITests.xctest"
                BlueprintName = "LTCoolRunningUITests"
                ReferencedContainer = "container:LTCoolRunning.xcodeproj">
@@ -52,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E70C1101C50FECC00BDCB3D"
+            BlueprintIdentifier = "8ECD930E1C5131B4000FF245"
             BuildableName = "LTCoolRunning.app"
             BlueprintName = "LTCoolRunning"
             ReferencedContainer = "container:LTCoolRunning.xcodeproj">
@@ -75,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E70C1101C50FECC00BDCB3D"
+            BlueprintIdentifier = "8ECD930E1C5131B4000FF245"
             BuildableName = "LTCoolRunning.app"
             BlueprintName = "LTCoolRunning"
             ReferencedContainer = "container:LTCoolRunning.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E70C1101C50FECC00BDCB3D"
+            BlueprintIdentifier = "8ECD930E1C5131B4000FF245"
             BuildableName = "LTCoolRunning.app"
             BlueprintName = "LTCoolRunning"
             ReferencedContainer = "container:LTCoolRunning.xcodeproj">
