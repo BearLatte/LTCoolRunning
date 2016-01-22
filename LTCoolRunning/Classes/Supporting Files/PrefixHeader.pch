@@ -13,6 +13,11 @@
 #define LTCRXMPPHOSTNAME @"127.0.0.1"
 #define LTCRXMPPDOMAIN   @"latte.com"
 #define LTCRXMPPPORT     5222
+#ifdef DEBUG
+    #define MYLog(...)NSLog(__VA_ARGS__)
+#else
+    #define MYLog(...)
+#endif
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 

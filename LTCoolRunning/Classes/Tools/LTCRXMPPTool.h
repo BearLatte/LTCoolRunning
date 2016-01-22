@@ -13,7 +13,9 @@
 typedef enum {
     LTCRXMPPResultTypeLoginSuccess,
     LTCRXMPPResultTypeLoginFailed,
-    LTCRXMPPResultTypeNetDeeor
+    LTCRXMPPResultTypeNetDeeor,
+    LTCRXMPPResultTypeRegisterSuccess,
+    LTCRXMPPResultTypeRegisterFailed
 }LTCRXMPPResultType;
 
 /** 定义block进行传值*/
@@ -25,5 +27,8 @@ singleton_interface(LTCRXMPPTool)
 @property (nonatomic, strong) XMPPStream *xmppStream;
 /** 用户登录 哪里需要XMPP的登录状态就传一个block进来即可*/
 - (void) userLogin:(LTCRXMPPResultBlock)block;
+
+///用户注册 哪里需要XMPP的注册状态就传一个Block进来即可
+- (void) userRegister:(LTCRXMPPResultBlock)block;
 
 @end

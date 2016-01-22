@@ -1333,13 +1333,13 @@
 		8ECD93451C513287000FF245 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8ECD93461C513287000FF245 /* Libraries */,
-				8ECD93471C513287000FF245 /* LoginAndRegister */,
 				8ECD934D1C513287000FF245 /* Main */,
+				8ECD93471C513287000FF245 /* LoginAndRegister */,
+				8ECD93461C513287000FF245 /* Libraries */,
 				8ECD934E1C513287000FF245 /* Other */,
+				8ECD93551C513287000FF245 /* Tools */,
 				8ECD93511C513287000FF245 /* Resources */,
 				8ECD93531C513287000FF245 /* Supporting Files */,
-				8ECD93551C513287000FF245 /* Tools */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

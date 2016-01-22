@@ -36,22 +36,37 @@ singleton_implementation(LTCRXMPPTool)
     self.xmppStream.hostPort = LTCRXMPPPORT;
     //构建一个JID
     NSString *userName = nil;
-    userName = [LTCRUserInfo sharedLTCRUserInfo].userName;
+    /** 注册和登陆的区别是， 登陆的时候用登陆名，注册的时候用注册名，其他连接服务器的代码都相同*/
+    if ([LTCRUserInfo sharedLTCRUserInfo].isRegisterType) {
+        userName = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+        
+    }else {
+        userName = [LTCRUserInfo sharedLTCRUserInfo].userName;
+    }
     NSString *jidStr = [NSString stringWithFormat:@"%@@%@",userName,LTCRXMPPDOMAIN];
     XMPPJID *jid = [XMPPJID jidWithString:jidStr];
     self.xmppStream.myJID = jid;
     NSError *error = nil;
     [self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error];
     if (error) {
-        NSLog(@"连接错误:%@",error.userInfo);
+        MYLog(@"连接错误:%@",error.userInfo);
     }
 }
-//发送密码 请求授权
+///发送密码登陆和注册
 - (void) sendPassword {
     NSError *error = nil;
-    [self.xmppStream authenticateWithPassword:[LTCRUserInfo sharedLTCRUserInfo].userPassword error:&error];
-    if (error) {
-        NSLog(@"发送错误:%@",error.userInfo);
+    NSString *userPassword = nil;
+    if ([LTCRUserInfo sharedLTCRUserInfo].isRegisterType) {
+        userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+        if (![self.xmppStream registerWithPassword:userPassword error:&error]) {
+            MYLog(@"发送密码错误:%@",error.userInfo);
+        }
+    }else {
+        userPassword = [LTCRUserInfo sharedLTCRUserInfo].userPassword;
+        [self.xmppStream authenticateWithPassword:userPassword error:&error];
+        if (error) {
+            MYLog(@"发送错误:%@",error.userInfo);
+        }
     }
 }
 //发送在线消息给服务器
@@ -68,7 +83,7 @@ singleton_implementation(LTCRXMPPTool)
         if (error && _resultBlock) {
             _resultBlock(LTCRXMPPResultTypeNetDeeor);
         }
-        NSLog(@"断开连接:%@",error.userInfo);
+        MYLog(@"断开连接:%@",error.userInfo);
     }
 }
 - (void) xmppStreamDidAuthenticate:(XMPPStream *)sender {
@@ -77,9 +92,24 @@ singleton_implementation(LTCRXMPPTool)
 }
 - (void) xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
     _resultBlock(LTCRXMPPResultTypeLoginFailed);
-    NSLog(@"授权失败:%@",error);
+    MYLog(@"授权失败:%@",error);
 }
+///用户注册成功
+- (void)xmppStreamDidRegister:(XMPPStream *)sender {
+    _resultBlock(LTCRXMPPResultTypeRegisterSuccess);
+}
+///用户注册失败
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
+    _resultBlock(LTCRXMPPResultTypeRegisterFailed);
+}
+#pragma mark - 登陆和注册的响应
+///用户登陆
 - (void)userLogin:(LTCRXMPPResultBlock)block {
+    _resultBlock = block;
+    [self connectToServer];
+}
+///用户注册
+- (void)userRegister:(LTCRXMPPResultBlock)block {
     _resultBlock = block;
     [self connectToServer];
 }

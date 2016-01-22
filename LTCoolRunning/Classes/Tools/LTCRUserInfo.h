@@ -13,4 +13,9 @@
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *userPassword;
 singleton_interface(LTCRUserInfo);
+
+@property (nonatomic, strong) NSString *userRegisterName;
+@property (nonatomic, strong) NSString *userRegisterPassword;
+///区分到底是登陆还是注册
+@property (nonatomic, assign,getter=isRegisterType) BOOL registerType;
 @end

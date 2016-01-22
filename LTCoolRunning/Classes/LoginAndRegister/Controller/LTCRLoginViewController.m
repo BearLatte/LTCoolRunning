@@ -19,7 +19,7 @@
 @end
 
 @implementation LTCRLoginViewController
-
+#pragma mark - 视图控制器的生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIImageView *userNameLeftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
@@ -33,12 +33,17 @@
     self.userPasswordTextField.leftViewMode = UITextFieldViewModeAlways;
     self.userPasswordTextField.leftView = userPasswordLeftView;
 }
+- (void)dealloc {
+    MYLog(@"%@",self);
+}
+#pragma mark - 界面的按钮响应方法
 - (IBAction)clickButtonLogin:(id)sender {
     /** 点击按钮把输入框中的值赋值给全局单例对象 */
     LTCRUserInfo *userInfo = [LTCRUserInfo sharedLTCRUserInfo];
     userInfo.userName = self.userNameTextField.text;
     userInfo.userPassword = self.userPasswordTextField.text;
     LTCRXMPPTool *xmppTool = [LTCRXMPPTool sharedLTCRXMPPTool];
+    userInfo.registerType = NO;
     //登录并返回登录状态
     __weak typeof (self) weakSelf = self;
     [xmppTool userLogin:^(LTCRXMPPResultType type) {
@@ -50,22 +55,19 @@
 - (void)handleXMPPResult:(LTCRXMPPResultType)type {
     switch (type) {
         case LTCRXMPPResultTypeLoginSuccess: {
-            NSLog(@"登录成功");
+            MYLog(@"登录成功");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             [UIApplication sharedApplication].keyWindow.rootViewController = storyboard.instantiateInitialViewController;
             break;
         }
         case LTCRXMPPResultTypeLoginFailed:
-            NSLog(@"登录失败");
+            MYLog(@"登录失败");
             break;
         case LTCRXMPPResultTypeNetDeeor:
-            NSLog(@"网络错误");
+            MYLog(@"网络错误");
             break;
         default:
             break;
     }
-}
-- (void)dealloc {
-    NSLog(@"%@",self);
 }
 @end
