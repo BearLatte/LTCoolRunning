@@ -28,7 +28,6 @@ singleton_implementation(LTCRXMPPTool)
     /** 断开上一次连接 */
     [self.xmppStream disconnect];
     
-    
     if (self.xmppStream == nil) {
         [self setupXMPPStream];
     }

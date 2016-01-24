@@ -9,6 +9,9 @@
 #import "LTCRRegisterViewController.h"
 #import "LTCRXMPPTool.h"
 #import "LTCRUserInfo.h"
+#import "MBProgressHUD+KR.h"
+#import "AFNetworking.h"
+#import "NSString+LTCRNMd5.h"
 
 @interface LTCRRegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *registerUserNameTextField;
@@ -54,18 +57,43 @@
 - (void)handleXMPPResult:(LTCRXMPPResultType)type {
     switch (type) {
         case LTCRXMPPResultTypeRegisterSuccess: {
-            MYLog(@"注册成功");
+            [self webRegiseterForServer];
+            //显示用户友好提示信息
+            [MBProgressHUD showSuccess:@"注册成功"];
+            [LTCRUserInfo sharedLTCRUserInfo].userName = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+            [LTCRUserInfo sharedLTCRUserInfo].userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword;
+            
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
         }
         case LTCRXMPPResultTypeRegisterFailed:
-            MYLog(@"注册失败");
+            [MBProgressHUD showError:@"注册失败"];
             break;
         case LTCRXMPPResultTypeNetDeeor:
-            MYLog(@"网络错误");
+            [MBProgressHUD showError:@"网络错误"];
             break;
         default:
             break;
     }
+}
+/** 完成web注册请求的方法 */
+- (void)webRegiseterForServer {
+    //实现web请求
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = [NSString stringWithFormat:@"http://%@:8080/allRunServer/register.jsp",LTCRXMPPHOSTNAME];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"username"] = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+    parameters[@"md5password"] = [[LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword md5StrXor];
+    MYLog(@"MD5串:%@",parameters[@"md5password"]);
+    parameters[@"nickname"] = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        UIImage *image = [UIImage imageNamed:@"icon"];
+        NSData *data = UIImagePNGRepresentation(image);
+        [formData appendPartWithFileData:data name:@"pic" fileName:@"headerImage.png" mimeType:@"image/jpeg"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        MYLog(@"headerImage.png%@",responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MYLog(@"error:%@",error.userInfo);
+    }];
 }
 @end
