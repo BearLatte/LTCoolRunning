@@ -8,7 +8,8 @@
 
 #import "LTCRXMPPTool.h"
 #import "LTCRUserInfo.h"
-
+#import "AFNetworking.h"
+#import "NSString+LTCRNMd5.h"
 
 @interface LTCRXMPPTool () <XMPPStreamDelegate>{
     LTCRXMPPResultBlock _resultBlock;
@@ -25,26 +26,22 @@ singleton_implementation(LTCRXMPPTool)
 }
 //连接到服务器
 - (void) connectToServer {
-    /** 断开上一次连接 */
-    [self.xmppStream disconnect];
     
-    if (self.xmppStream == nil) {
+    if (!self.xmppStream) {
         [self setupXMPPStream];
     }
     self.xmppStream.hostName = LTCRXMPPHOSTNAME;
     self.xmppStream.hostPort = LTCRXMPPPORT;
     //构建一个JID
-    NSString *userName = nil;
+    NSString *userName = [LTCRUserInfo sharedLTCRUserInfo].userName;
     /** 注册和登陆的区别是， 登陆的时候用登陆名，注册的时候用注册名，其他连接服务器的代码都相同*/
-    if ([LTCRUserInfo sharedLTCRUserInfo].isRegisterType) {
+    if ([LTCRUserInfo sharedLTCRUserInfo].registerType) {
         userName = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
-        
-    }else {
-        userName = [LTCRUserInfo sharedLTCRUserInfo].userName;
     }
     NSString *jidStr = [NSString stringWithFormat:@"%@@%@",userName,LTCRXMPPDOMAIN];
     XMPPJID *jid = [XMPPJID jidWithString:jidStr];
     self.xmppStream.myJID = jid;
+    MYLog(@"MYJID:%@",self.xmppStream.myJID);
     NSError *error = nil;
     [self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error];
     if (error) {
@@ -55,22 +52,27 @@ singleton_implementation(LTCRXMPPTool)
 - (void) sendPassword {
     NSError *error = nil;
     NSString *userPassword = nil;
-    if ([LTCRUserInfo sharedLTCRUserInfo].isRegisterType) {
-        userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
-        if (![self.xmppStream registerWithPassword:userPassword error:&error]) {
-            MYLog(@"发送密码错误:%@",error.userInfo);
-        }
+    if ([LTCRUserInfo sharedLTCRUserInfo].registerType) {
+        userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword;
+        [self.xmppStream registerWithPassword:userPassword error:&error];
     }else {
         userPassword = [LTCRUserInfo sharedLTCRUserInfo].userPassword;
         [self.xmppStream authenticateWithPassword:userPassword error:&error];
-        if (error) {
-            MYLog(@"发送错误:%@",error.userInfo);
-        }
+    }
+    MYLog(@"密码:%@",userPassword);
+    if (error) {
+        MYLog(@"发送密码错误:%@",error.userInfo);
     }
 }
 //发送在线消息给服务器
 - (void) sendOnLine {
     XMPPPresence *presence = [XMPPPresence presence];
+    [self.xmppStream sendElement:presence];
+}
+/** 退出时发送离线消息 */
+- (void) sendOffLine
+{
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
     [self.xmppStream sendElement:presence];
 }
 #pragma mark - XMPPStreamDelegate
@@ -91,6 +93,7 @@ singleton_implementation(LTCRXMPPTool)
 }
 - (void) xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
     _resultBlock(LTCRXMPPResultTypeLoginFailed);
+    MYLog(@"myJID:%@",sender.myJID);
     MYLog(@"授权失败:%@",error);
 }
 ///用户注册成功
@@ -105,11 +108,44 @@ singleton_implementation(LTCRXMPPTool)
 ///用户登陆
 - (void)userLogin:(LTCRXMPPResultBlock)block {
     _resultBlock = block;
+    /** 断开上一次连接 */
+    [self.xmppStream disconnect];
+    
+    
     [self connectToServer];
 }
 ///用户注册
 - (void)userRegister:(LTCRXMPPResultBlock)block {
     _resultBlock = block;
+    /** 断开上一次连接 */
+    [self.xmppStream disconnect];
+    
     [self connectToServer];
+}
+//释放资源
+- (void) dealloc {
+    //移除代理
+    [_xmppStream removeDelegate:self];
+    //停止激活
+}
+/** 完成web注册请求的方法 */
+- (void)webRegiseterForServer {
+    //实现web请求
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = [NSString stringWithFormat:@"http://%@:8080/allRunServer/register.jsp",LTCRXMPPHOSTNAME];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"username"] = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+    parameters[@"md5password"] = [[LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword md5StrXor];
+    MYLog(@"MD5串:%@",parameters[@"md5password"]);
+    parameters[@"nickname"] = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        UIImage *image = [UIImage imageNamed:@"icon"];
+        NSData *data = UIImagePNGRepresentation(image);
+        [formData appendPartWithFileData:data name:@"pic" fileName:@"headerImage.png" mimeType:@"image/jpeg"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        MYLog(@"headerImage.png%@",responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MYLog(@"error:%@",error.userInfo);
+    }];
 }
 @end

@@ -7,10 +7,11 @@
 //
 
 #import "LTCRLoginViewController.h"
+#import "LTCRRegisterViewController.h"
+#import "LTCRSinaLoginViewController.h"
 #import "AppDelegate.h"
 #import "LTCRUserInfo.h"
 #import "LTCRXMPPTool.h"
-#import "LTCRRegisterViewController.h"
 #import "MBProgressHUD+KR.h"
 
 @interface LTCRLoginViewController ()
@@ -41,6 +42,13 @@
         self.userPasswordTextField.text = [LTCRUserInfo sharedLTCRUserInfo].userPassword;
     }
 }
+//点击新浪登陆按钮的时候触发
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *nextController = segue.destinationViewController;
+    if ([nextController isKindOfClass:[LTCRSinaLoginViewController class]]) {
+        [LTCRUserInfo sharedLTCRUserInfo].sinaLoginAndRegister = YES;
+    }
+}
 - (void)dealloc {
     MYLog(@"%@",self);
 }
@@ -59,6 +67,7 @@
         [MBProgressHUD showMessage:@"正在登陆..."];
     }else {
         [MBProgressHUD showError:@"用户名或密码不能为空"];
+        [self.userNameTextField becomeFirstResponder];
         return;
     }
     //登录并返回登录状态
@@ -89,4 +98,5 @@
             break;
     }
 }
+
 @end

@@ -30,5 +30,6 @@ singleton_interface(LTCRXMPPTool)
 
 ///用户注册 哪里需要XMPP的注册状态就传一个Block进来即可
 - (void) userRegister:(LTCRXMPPResultBlock)block;
-
+/** 完成web注册请求的方法 */
+- (void)webRegiseterForServer;
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E2FFAB21C54DA5300886DE5 /* NSString+LTCRNMd5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2FFAB11C54DA5300886DE5 /* NSString+LTCRNMd5.m */; };
+		8E2FFAB51C55026500886DE5 /* LTCRSinaLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2FFAB41C55026500886DE5 /* LTCRSinaLoginViewController.m */; };
 		8E89C9031C530E2700F623B6 /* MBProgressHUD+KR.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89C8FF1C530E2700F623B6 /* MBProgressHUD+KR.m */; };
 		8E89C9041C530E2700F623B6 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E89C9001C530E2700F623B6 /* MBProgressHUD.bundle */; };
 		8E89C9051C530E2700F623B6 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89C9021C530E2700F623B6 /* MBProgressHUD.m */; };
@@ -184,6 +185,8 @@
 /* Begin PBXFileReference section */
 		8E2FFAB01C54DA5300886DE5 /* NSString+LTCRNMd5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LTCRNMd5.h"; sourceTree = "<group>"; };
 		8E2FFAB11C54DA5300886DE5 /* NSString+LTCRNMd5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LTCRNMd5.m"; sourceTree = "<group>"; };
+		8E2FFAB31C55026500886DE5 /* LTCRSinaLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRSinaLoginViewController.h; sourceTree = "<group>"; };
+		8E2FFAB41C55026500886DE5 /* LTCRSinaLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRSinaLoginViewController.m; sourceTree = "<group>"; };
 		8E89C8FE1C530E2700F623B6 /* MBProgressHUD+KR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+KR.h"; sourceTree = "<group>"; };
 		8E89C8FF1C530E2700F623B6 /* MBProgressHUD+KR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+KR.m"; sourceTree = "<group>"; };
 		8E89C9001C530E2700F623B6 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
@@ -1461,6 +1464,8 @@
 				8ECD934A1C513287000FF245 /* LTCRLoginViewController.m */,
 				8EE49E0C1C517E6400B65BED /* LTCRRegisterViewController.h */,
 				8EE49E0D1C517E6400B65BED /* LTCRRegisterViewController.m */,
+				8E2FFAB31C55026500886DE5 /* LTCRSinaLoginViewController.h */,
+				8E2FFAB41C55026500886DE5 /* LTCRSinaLoginViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1760,6 +1765,7 @@
 				8EB3BD421C513A7600918228 /* XMPPXOAuth2Google.m in Sources */,
 				8EB3BD451C513A7600918228 /* NSXMLElement+XMPP.m in Sources */,
 				8EB3BDB71C513A7600918228 /* DDXMLDocument.m in Sources */,
+				8E2FFAB51C55026500886DE5 /* LTCRSinaLoginViewController.m in Sources */,
 				8EB3BDA51C513A7600918228 /* XMPPMessage+XEP_0333.m in Sources */,
 				8EB3BD7C1C513A7600918228 /* XMPPvCardTempModule.m in Sources */,
 				8EB3BD561C513A7600918228 /* XMPPRosterCoreDataStorage.m in Sources */,

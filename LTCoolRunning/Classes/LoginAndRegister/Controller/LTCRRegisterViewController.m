@@ -11,7 +11,6 @@
 #import "LTCRUserInfo.h"
 #import "MBProgressHUD+KR.h"
 #import "AFNetworking.h"
-#import "NSString+LTCRNMd5.h"
 
 @interface LTCRRegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *registerUserNameTextField;
@@ -57,13 +56,11 @@
 - (void)handleXMPPResult:(LTCRXMPPResultType)type {
     switch (type) {
         case LTCRXMPPResultTypeRegisterSuccess: {
-            [self webRegiseterForServer];
+            [[LTCRXMPPTool sharedLTCRXMPPTool] webRegiseterForServer];
+            [LTCRUserInfo sharedLTCRUserInfo].registerType = NO;
             //显示用户友好提示信息
             [MBProgressHUD showSuccess:@"注册成功"];
-            [LTCRUserInfo sharedLTCRUserInfo].userName = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
-            [LTCRUserInfo sharedLTCRUserInfo].userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword;
-            
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self loginByRegisterAccount];
             break;
         }
         case LTCRXMPPResultTypeRegisterFailed:
@@ -76,24 +73,29 @@
             break;
     }
 }
-/** 完成web注册请求的方法 */
-- (void)webRegiseterForServer {
-    //实现web请求
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"http://%@:8080/allRunServer/register.jsp",LTCRXMPPHOSTNAME];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    parameters[@"username"] = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
-    parameters[@"md5password"] = [[LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword md5StrXor];
-    MYLog(@"MD5串:%@",parameters[@"md5password"]);
-    parameters[@"nickname"] = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
-    [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        UIImage *image = [UIImage imageNamed:@"icon"];
-        NSData *data = UIImagePNGRepresentation(image);
-        [formData appendPartWithFileData:data name:@"pic" fileName:@"headerImage.png" mimeType:@"image/jpeg"];
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        MYLog(@"headerImage.png%@",responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        MYLog(@"error:%@",error.userInfo);
+- (void)loginByRegisterAccount {
+    [LTCRUserInfo sharedLTCRUserInfo].userName = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
+    [LTCRUserInfo sharedLTCRUserInfo].userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword;
+    [[LTCRXMPPTool sharedLTCRXMPPTool] userLogin:^(LTCRXMPPResultType type) {
+        switch (type) {
+            case LTCRXMPPResultTypeLoginSuccess: {
+                [MBProgressHUD showSuccess:@"登陆成功"];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                [UIApplication sharedApplication].keyWindow.rootViewController = storyboard.instantiateInitialViewController;
+                break;
+            }
+            case LTCRXMPPResultTypeLoginFailed:
+                [MBProgressHUD showError:@"登录失败"];
+                [self dismissViewControllerAnimated:YES completion:nil];
+                break;
+            case LTCRXMPPResultTypeNetDeeor:
+                [MBProgressHUD showError:@"网络错误"];
+                break;
+            default:
+                break;
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
+    
 }
 @end
