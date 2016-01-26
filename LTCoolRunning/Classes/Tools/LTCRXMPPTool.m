@@ -23,6 +23,19 @@ singleton_implementation(LTCRXMPPTool)
 - (void) setupXMPPStream {
     self.xmppStream = [[XMPPStream alloc] init];
     [self.xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    ///初始化电子名片模块和头像模块
+    self.xmppvCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
+    self.xmppvCard = [[XMPPvCardTempModule alloc] initWithvCardStorage:self.xmppvCardStorage];
+    self.xmppvCardAvar = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:self.xmppvCard];
+    //激活名片模块和头像模块
+    [self.xmppvCard activate:self.xmppStream];
+    [self.xmppvCardAvar activate:self.xmppStream];
+    
+    //初始化花名册模块和头像
+    self.xmppRosterStore = [[XMPPRosterCoreDataStorage alloc] init];
+    self.xmppRoster = [[XMPPRoster alloc] initWithRosterStorage:self.xmppRosterStore];
+    //激活花名册模块和头像
+    [self.xmppRoster activate:self.xmppStream];
 }
 //连接到服务器
 - (void) connectToServer {

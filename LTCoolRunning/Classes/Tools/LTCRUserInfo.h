@@ -20,6 +20,8 @@ singleton_interface(LTCRUserInfo);
 @property (nonatomic, assign, getter=isRegisterType) BOOL registerType;
 ///区分是不是新浪注册和登陆
 @property (nonatomic, assign) BOOL sinaLoginAndRegister;
-///
 @property (nonatomic, strong) NSString *sinaToken;
+
+///获取当前用户jidStr
+- (NSString *)jidStr;
 @end

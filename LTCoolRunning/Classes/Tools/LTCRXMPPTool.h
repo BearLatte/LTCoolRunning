@@ -18,13 +18,22 @@ typedef enum {
     LTCRXMPPResultTypeRegisterFailed
 }LTCRXMPPResultType;
 
-/** 定义block进行传值*/
+/** 定义block进行传值 */
 typedef void(^LTCRXMPPResultBlock)(LTCRXMPPResultType type);
 
 @interface LTCRXMPPTool : NSObject
 singleton_interface(LTCRXMPPTool)
 
 @property (nonatomic, strong) XMPPStream *xmppStream;
+/** 增加电子名片模块和头像模块 */
+@property (nonatomic, strong) XMPPvCardAvatarModule *xmppvCardAvar;
+@property (nonatomic, strong) XMPPvCardTempModule *xmppvCard;
+/** 管理电子名片模块 */
+@property (nonatomic, strong) XMPPvCardCoreDataStorage *xmppvCardStorage;
+///花名册模块
+@property (nonatomic, strong) XMPPRoster *xmppRoster;
+@property (nonatomic, strong) XMPPRosterCoreDataStorage *xmppRosterStore;
+
 /** 用户登录 哪里需要XMPP的登录状态就传一个block进来即可*/
 - (void) userLogin:(LTCRXMPPResultBlock)block;
 

@@ -10,4 +10,8 @@
 
 @implementation LTCRUserInfo
 singleton_implementation(LTCRUserInfo)
+- (NSString *)jidStr {
+    NSString *jidStr = [NSString stringWithFormat:@"%@@%@",self.userName,LTCRXMPPDOMAIN];
+    return jidStr;
+}
 @end

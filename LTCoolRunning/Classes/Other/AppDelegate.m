@@ -14,7 +14,15 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self setNavigationBarStyle];
     return YES;
+}
+//设置导航栏的统一样式
+- (void)setNavigationBarStyle {
+    //设置导航栏背景
+    UINavigationBar *bar = [UINavigationBar appearance];
+    [bar setBackgroundImage:[UIImage imageNamed:@"矩形"] forBarMetrics:UIBarMetricsDefault];
+    bar.barStyle = UIBarStyleBlack;
+    bar.tintColor = [UIColor whiteColor];
 }
 @end

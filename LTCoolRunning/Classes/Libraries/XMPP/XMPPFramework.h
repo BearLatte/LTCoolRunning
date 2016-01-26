@@ -23,7 +23,12 @@
 //  The following is standard:
 
 #import "XMPP.h"
- 
+#import "XMPPvCardTempModule.h"
+#import "XMPPvCardCoreDataStorage.h"
+#import "XMPPvCardAvatarModule.h"
+#import "XMPPRoster.h"
+#import "XMPPRosterCoreDataStorage.h"
+
 // List the modules you're using here:
 // (the following may not be a complete list)
 

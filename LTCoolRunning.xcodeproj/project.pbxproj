@@ -22,6 +22,8 @@
 		8E89C9211C53212600F623B6 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89C9171C53212600F623B6 /* AFURLResponseSerialization.m */; };
 		8E89C9221C53212600F623B6 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89C9191C53212600F623B6 /* AFURLSessionManager.m */; };
 		8E89C9241C53325F00F623B6 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89C9231C53325F00F623B6 /* Foundation+Log.m */; };
+		8EA4D5761C57C55000926BD4 /* LTCRContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4D5751C57C55000926BD4 /* LTCRContactTableViewController.m */; };
+		8EA4D57A1C57C5A700926BD4 /* LTCRContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4D5791C57C5A700926BD4 /* LTCRContactTableViewCell.m */; };
 		8EB3BD3C1C513A7600918228 /* XMPPAnonymousAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BBF11C513A7600918228 /* XMPPAnonymousAuthentication.m */; };
 		8EB3BD3D1C513A7600918228 /* XMPPDeprecatedDigestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BBF41C513A7600918228 /* XMPPDeprecatedDigestAuthentication.m */; };
 		8EB3BD3E1C513A7600918228 /* XMPPDeprecatedPlainAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BBF71C513A7600918228 /* XMPPDeprecatedPlainAuthentication.m */; };
@@ -163,6 +165,10 @@
 		8EE49E0B1C51706700B65BED /* LTCRXMPPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE49E0A1C51706700B65BED /* LTCRXMPPTool.m */; };
 		8EE49E0E1C517E6400B65BED /* LTCRRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE49E0D1C517E6400B65BED /* LTCRRegisterViewController.m */; };
 		8EE49E101C51815B00B65BED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE49E0F1C51815B00B65BED /* Main.storyboard */; };
+		8EE6D6C31C5729D000EC4FE8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE6D6C21C5729D000EC4FE8 /* MapKit.framework */; };
+		8EE6D6C71C572CB200EC4FE8 /* LTCRMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6D6C61C572CB200EC4FE8 /* LTCRMyProfileViewController.m */; };
+		8EE6D6CD1C57803300EC4FE8 /* LTCREditMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6D6CC1C57803300EC4FE8 /* LTCREditMyProfileViewController.m */; };
+		8EE6D6D01C57925600EC4FE8 /* UIImageView+LTCRImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6D6CF1C57925600EC4FE8 /* UIImageView+LTCRImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +218,10 @@
 		8E89C9181C53212600F623B6 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		8E89C9191C53212600F623B6 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		8E89C9231C53325F00F623B6 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		8EA4D5741C57C55000926BD4 /* LTCRContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRContactTableViewController.h; sourceTree = "<group>"; };
+		8EA4D5751C57C55000926BD4 /* LTCRContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRContactTableViewController.m; sourceTree = "<group>"; };
+		8EA4D5781C57C5A700926BD4 /* LTCRContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRContactTableViewCell.h; sourceTree = "<group>"; };
+		8EA4D5791C57C5A700926BD4 /* LTCRContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRContactTableViewCell.m; sourceTree = "<group>"; };
 		8EB3BBF01C513A7600918228 /* XMPPAnonymousAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAnonymousAuthentication.h; sourceTree = "<group>"; };
 		8EB3BBF11C513A7600918228 /* XMPPAnonymousAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAnonymousAuthentication.m; sourceTree = "<group>"; };
 		8EB3BBF31C513A7600918228 /* XMPPDeprecatedDigestAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDeprecatedDigestAuthentication.h; sourceTree = "<group>"; };
@@ -503,6 +513,13 @@
 		8EE49E0C1C517E6400B65BED /* LTCRRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRRegisterViewController.h; sourceTree = "<group>"; };
 		8EE49E0D1C517E6400B65BED /* LTCRRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRRegisterViewController.m; sourceTree = "<group>"; };
 		8EE49E0F1C51815B00B65BED /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		8EE6D6C21C5729D000EC4FE8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8EE6D6C51C572CB200EC4FE8 /* LTCRMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRMyProfileViewController.h; sourceTree = "<group>"; };
+		8EE6D6C61C572CB200EC4FE8 /* LTCRMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRMyProfileViewController.m; sourceTree = "<group>"; };
+		8EE6D6CB1C57803300EC4FE8 /* LTCREditMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCREditMyProfileViewController.h; sourceTree = "<group>"; };
+		8EE6D6CC1C57803300EC4FE8 /* LTCREditMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCREditMyProfileViewController.m; sourceTree = "<group>"; };
+		8EE6D6CE1C57925600EC4FE8 /* UIImageView+LTCRImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LTCRImageView.h"; sourceTree = "<group>"; };
+		8EE6D6CF1C57925600EC4FE8 /* UIImageView+LTCRImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LTCRImageView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +527,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE6D6C31C5729D000EC4FE8 /* MapKit.framework in Frameworks */,
 				8EE49E031C51404600B65BED /* libresolv.tbd in Frameworks */,
 				8EE49E011C51403800B65BED /* libxml2.tbd in Frameworks */,
 				8EB3BDBB1C513A7600918228 /* libidn.a in Frameworks */,
@@ -538,6 +556,8 @@
 			children = (
 				8E2FFAB01C54DA5300886DE5 /* NSString+LTCRNMd5.h */,
 				8E2FFAB11C54DA5300886DE5 /* NSString+LTCRNMd5.m */,
+				8EE6D6CE1C57925600EC4FE8 /* UIImageView+LTCRImageView.h */,
+				8EE6D6CF1C57925600EC4FE8 /* UIImageView+LTCRImageView.m */,
 			);
 			path = Catgories;
 			sourceTree = "<group>";
@@ -578,6 +598,15 @@
 				8E89C9191C53212600F623B6 /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		8EA4D5771C57C57600926BD4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8EA4D5781C57C5A700926BD4 /* LTCRContactTableViewCell.h */,
+				8EA4D5791C57C5A700926BD4 /* LTCRContactTableViewCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8EB3BBED1C513A7600918228 /* XMPP */ = {
@@ -1375,6 +1404,7 @@
 		8ECD93061C5131B4000FF245 = {
 			isa = PBXGroup;
 			children = (
+				8EE6D6C21C5729D000EC4FE8 /* MapKit.framework */,
 				8EE49E021C51404600B65BED /* libresolv.tbd */,
 				8EE49E001C51403800B65BED /* libxml2.tbd */,
 				8ECD93111C5131B4000FF245 /* LTCoolRunning */,
@@ -1480,6 +1510,8 @@
 		8ECD934D1C513287000FF245 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				8EA4D5771C57C57600926BD4 /* Views */,
+				8EE6D6C41C572C6E00EC4FE8 /* Controllers */,
 				8EE49E0F1C51815B00B65BED /* Main.storyboard */,
 			);
 			path = Main;
@@ -1521,6 +1553,19 @@
 				8EE49E0A1C51706700B65BED /* LTCRXMPPTool.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		8EE6D6C41C572C6E00EC4FE8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8EE6D6C51C572CB200EC4FE8 /* LTCRMyProfileViewController.h */,
+				8EE6D6C61C572CB200EC4FE8 /* LTCRMyProfileViewController.m */,
+				8EE6D6CB1C57803300EC4FE8 /* LTCREditMyProfileViewController.h */,
+				8EE6D6CC1C57803300EC4FE8 /* LTCREditMyProfileViewController.m */,
+				8EA4D5741C57C55000926BD4 /* LTCRContactTableViewController.h */,
+				8EA4D5751C57C55000926BD4 /* LTCRContactTableViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1663,6 +1708,7 @@
 				8EB3BDA01C513A7600918228 /* XEP_0223.m in Sources */,
 				8EB3BD711C513A7600918228 /* XMPPvCard.xcdatamodeld in Sources */,
 				8EB3BD4A1C513A7600918228 /* XMPPModule.m in Sources */,
+				8EE6D6C71C572CB200EC4FE8 /* LTCRMyProfileViewController.m in Sources */,
 				8EB3BD511C513A7600918228 /* XMPPProcessOne.m in Sources */,
 				8EB3BD891C513A7600918228 /* XMPPTransports.m in Sources */,
 				8EB3BD481C513A7600918228 /* XMPPJID.m in Sources */,
@@ -1696,6 +1742,7 @@
 				8EB3BD8E1C513A7600918228 /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				8EB3BD581C513A7600918228 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				8EB3BDA91C513A7600918228 /* RFImageToDataTransformer.m in Sources */,
+				8EE6D6CD1C57803300EC4FE8 /* LTCREditMyProfileViewController.m in Sources */,
 				8EB3BD501C513A7600918228 /* XMPPGoogleSharedStatus.m in Sources */,
 				8EB3BD671C513A7600918228 /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				8EB3BD5B1C513A7600918228 /* XMPPRoster.m in Sources */,
@@ -1704,6 +1751,7 @@
 				8EB3BDB91C513A7600918228 /* DDXMLNode.m in Sources */,
 				8E2FFAB21C54DA5300886DE5 /* NSString+LTCRNMd5.m in Sources */,
 				8E89C9031C530E2700F623B6 /* MBProgressHUD+KR.m in Sources */,
+				8EA4D5761C57C55000926BD4 /* LTCRContactTableViewController.m in Sources */,
 				8EB3BD491C513A7600918228 /* XMPPMessage.m in Sources */,
 				8EE49E071C51674B00B65BED /* LTCRUserInfo.m in Sources */,
 				8EB3BD461C513A7600918228 /* XMPPElement.m in Sources */,
@@ -1746,6 +1794,7 @@
 				8EB3BD9E1C513A7600918228 /* XMPPTime.m in Sources */,
 				8EB3BD621C513A7600918228 /* XMPPPrivacy.m in Sources */,
 				8EB3BD901C513A7600918228 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
+				8EE6D6D01C57925600EC4FE8 /* UIImageView+LTCRImageView.m in Sources */,
 				8EB3BD721C513A7600918228 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				8EB3BD631C513A7600918228 /* XMPPRoom.xcdatamodeld in Sources */,
 				8EB3BDB21C513A7600918228 /* DDTTYLogger.m in Sources */,
@@ -1791,6 +1840,7 @@
 				8EB3BD651C513A7600918228 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				8EB3BD871C513A7600918228 /* XMPPMessage+XEP_0085.m in Sources */,
 				8EE49E0E1C517E6400B65BED /* LTCRRegisterViewController.m in Sources */,
+				8EA4D57A1C57C5A700926BD4 /* LTCRContactTableViewCell.m in Sources */,
 				8EB3BDAD1C513A7600918228 /* GCDAsyncSocket.m in Sources */,
 				8EB3BD741C513A7600918228 /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				8EB3BDB61C513A7600918228 /* NSString+DDXML.m in Sources */,
@@ -1925,6 +1975,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LTCoolRunning/Classes/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1937,6 +1991,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.com.tarena.LTCoolRunning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1945,6 +2000,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LTCoolRunning/Classes/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1957,6 +2016,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.com.tarena.LTCoolRunning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
