@@ -11,7 +11,7 @@
 #import "AFNetworking.h"
 #import "NSString+LTCRNMd5.h"
 
-@interface LTCRXMPPTool () <XMPPStreamDelegate>{
+@interface LTCRXMPPTool () <XMPPStreamDelegate,XMPPRosterDelegate>{
     LTCRXMPPResultBlock _resultBlock;
 }
 
@@ -34,8 +34,17 @@ singleton_implementation(LTCRXMPPTool)
     //初始化花名册模块和头像
     self.xmppRosterStore = [[XMPPRosterCoreDataStorage alloc] init];
     self.xmppRoster = [[XMPPRoster alloc] initWithRosterStorage:self.xmppRosterStore];
+    [self.xmppRoster addDelegate:self delegateQueue:nil];
+    self.xmppRoster.autoFetchRoster = YES;
+    self.xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = YES;
     //激活花名册模块和头像
     [self.xmppRoster activate:self.xmppStream];
+    
+    //初始化消息模块
+    self.xmppMessageCoreData = [XMPPMessageArchivingCoreDataStorage sharedInstance];
+    self.xmppArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:self.xmppMessageCoreData];
+    //激活消息模块
+    [self.xmppArchiving activate:self.xmppStream];
 }
 //连接到服务器
 - (void) connectToServer {
@@ -109,6 +118,19 @@ singleton_implementation(LTCRXMPPTool)
     MYLog(@"myJID:%@",sender.myJID);
     MYLog(@"授权失败:%@",error);
 }
+#pragma mark - XMPP Roster Delegate
+- (void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence {
+    //取得好友状态
+    NSString *presenceType = [NSString stringWithFormat:@"%@", [presence type]]; //online/offline
+    //请求的用户
+    NSString *presenceFromUser =[NSString stringWithFormat:@"%@", [[presence from] user]];
+    NSLog(@"presenceType:%@",presenceType);
+    
+    NSLog(@"presence2:%@  sender2:%@",presence,sender);
+    
+    XMPPJID *jid = [XMPPJID jidWithString:presenceFromUser];
+    [self.xmppRoster acceptPresenceSubscriptionRequestFrom:jid andAddToRoster:YES];
+}
 ///用户注册成功
 - (void)xmppStreamDidRegister:(XMPPStream *)sender {
     _resultBlock(LTCRXMPPResultTypeRegisterSuccess);
@@ -141,6 +163,7 @@ singleton_implementation(LTCRXMPPTool)
     [_xmppStream removeDelegate:self];
     //停止激活
 }
+#pragma mark - webServer服务器注册的方法
 /** 完成web注册请求的方法 */
 - (void)webRegiseterForServer {
     //实现web请求

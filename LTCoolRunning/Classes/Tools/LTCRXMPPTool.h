@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
 #import "XMPPFramework.h"
+#import "XMPPMessageArchiving.h"
+#import "XMPPMessageArchivingCoreDataStorage.h"
+//#import "XMPPMessageArchiving_Contact_CoreDataObject.h"
+//#import "XMPPMessageArchiving_Message_CoreDataObject.h"
 
 typedef enum {
     LTCRXMPPResultTypeLoginSuccess,
@@ -33,7 +37,9 @@ singleton_interface(LTCRXMPPTool)
 ///花名册模块
 @property (nonatomic, strong) XMPPRoster *xmppRoster;
 @property (nonatomic, strong) XMPPRosterCoreDataStorage *xmppRosterStore;
-
+///增加消息模块 和对应的存储
+@property (nonatomic, strong) XMPPMessageArchiving *xmppArchiving;
+@property (nonatomic, strong) XMPPMessageArchivingCoreDataStorage *xmppMessageCoreData;
 /** 用户登录 哪里需要XMPP的登录状态就传一个block进来即可*/
 - (void) userLogin:(LTCRXMPPResultBlock)block;
 

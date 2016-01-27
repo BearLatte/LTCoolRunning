@@ -24,6 +24,9 @@
 		8E89C9241C53325F00F623B6 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E89C9231C53325F00F623B6 /* Foundation+Log.m */; };
 		8EA4D5761C57C55000926BD4 /* LTCRContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4D5751C57C55000926BD4 /* LTCRContactTableViewController.m */; };
 		8EA4D57A1C57C5A700926BD4 /* LTCRContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4D5791C57C5A700926BD4 /* LTCRContactTableViewCell.m */; };
+		8EADE1681C58AD7200C81452 /* LTCRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EADE1671C58AD7200C81452 /* LTCRChatViewController.m */; };
+		8EADE16E1C58F3FF00C81452 /* LTCRMeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EADE16D1C58F3FF00C81452 /* LTCRMeCell.m */; };
+		8EADE1711C58F54400C81452 /* LTCROtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EADE1701C58F54400C81452 /* LTCROtherCell.m */; };
 		8EB3BD3C1C513A7600918228 /* XMPPAnonymousAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BBF11C513A7600918228 /* XMPPAnonymousAuthentication.m */; };
 		8EB3BD3D1C513A7600918228 /* XMPPDeprecatedDigestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BBF41C513A7600918228 /* XMPPDeprecatedDigestAuthentication.m */; };
 		8EB3BD3E1C513A7600918228 /* XMPPDeprecatedPlainAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB3BBF71C513A7600918228 /* XMPPDeprecatedPlainAuthentication.m */; };
@@ -222,6 +225,12 @@
 		8EA4D5751C57C55000926BD4 /* LTCRContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRContactTableViewController.m; sourceTree = "<group>"; };
 		8EA4D5781C57C5A700926BD4 /* LTCRContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRContactTableViewCell.h; sourceTree = "<group>"; };
 		8EA4D5791C57C5A700926BD4 /* LTCRContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRContactTableViewCell.m; sourceTree = "<group>"; };
+		8EADE1661C58AD7200C81452 /* LTCRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRChatViewController.h; sourceTree = "<group>"; };
+		8EADE1671C58AD7200C81452 /* LTCRChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRChatViewController.m; sourceTree = "<group>"; };
+		8EADE16C1C58F3FF00C81452 /* LTCRMeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCRMeCell.h; sourceTree = "<group>"; };
+		8EADE16D1C58F3FF00C81452 /* LTCRMeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCRMeCell.m; sourceTree = "<group>"; };
+		8EADE16F1C58F54400C81452 /* LTCROtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTCROtherCell.h; sourceTree = "<group>"; };
+		8EADE1701C58F54400C81452 /* LTCROtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTCROtherCell.m; sourceTree = "<group>"; };
 		8EB3BBF01C513A7600918228 /* XMPPAnonymousAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAnonymousAuthentication.h; sourceTree = "<group>"; };
 		8EB3BBF11C513A7600918228 /* XMPPAnonymousAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAnonymousAuthentication.m; sourceTree = "<group>"; };
 		8EB3BBF31C513A7600918228 /* XMPPDeprecatedDigestAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDeprecatedDigestAuthentication.h; sourceTree = "<group>"; };
@@ -605,6 +614,10 @@
 			children = (
 				8EA4D5781C57C5A700926BD4 /* LTCRContactTableViewCell.h */,
 				8EA4D5791C57C5A700926BD4 /* LTCRContactTableViewCell.m */,
+				8EADE16C1C58F3FF00C81452 /* LTCRMeCell.h */,
+				8EADE16D1C58F3FF00C81452 /* LTCRMeCell.m */,
+				8EADE16F1C58F54400C81452 /* LTCROtherCell.h */,
+				8EADE1701C58F54400C81452 /* LTCROtherCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1428,7 +1441,6 @@
 			isa = PBXGroup;
 			children = (
 				8ECD93451C513287000FF245 /* Classes */,
-				8ECD93231C5131B4000FF245 /* Info.plist */,
 			);
 			path = LTCoolRunning;
 			sourceTree = "<group>";
@@ -1537,6 +1549,7 @@
 		8ECD93531C513287000FF245 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8ECD93231C5131B4000FF245 /* Info.plist */,
 				8EE49E041C51406900B65BED /* PrefixHeader.pch */,
 				8ECD93541C513287000FF245 /* main.m */,
 			);
@@ -1564,6 +1577,8 @@
 				8EE6D6CC1C57803300EC4FE8 /* LTCREditMyProfileViewController.m */,
 				8EA4D5741C57C55000926BD4 /* LTCRContactTableViewController.h */,
 				8EA4D5751C57C55000926BD4 /* LTCRContactTableViewController.m */,
+				8EADE1661C58AD7200C81452 /* LTCRChatViewController.h */,
+				8EADE1671C58AD7200C81452 /* LTCRChatViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1712,6 +1727,7 @@
 				8EB3BD511C513A7600918228 /* XMPPProcessOne.m in Sources */,
 				8EB3BD891C513A7600918228 /* XMPPTransports.m in Sources */,
 				8EB3BD481C513A7600918228 /* XMPPJID.m in Sources */,
+				8EADE1681C58AD7200C81452 /* LTCRChatViewController.m in Sources */,
 				8EB3BD441C513A7600918228 /* NSNumber+XMPP.m in Sources */,
 				8EB3BD9B1C513A7600918228 /* XMPPAutoPing.m in Sources */,
 				8EB3BD8F1C513A7600918228 /* XMPPCapabilities.m in Sources */,
@@ -1758,6 +1774,7 @@
 				8EB3BD791C513A7600918228 /* XMPPvCardTempBase.m in Sources */,
 				8E89C9201C53212600F623B6 /* AFURLRequestSerialization.m in Sources */,
 				8EB3BD831C513A7600918228 /* XMPPIQ+XEP_0066.m in Sources */,
+				8EADE16E1C58F3FF00C81452 /* LTCRMeCell.m in Sources */,
 				8E89C9241C53325F00F623B6 /* Foundation+Log.m in Sources */,
 				8EB3BDA61C513A7600918228 /* NSXMLElement+XEP_0335.m in Sources */,
 				8EB3BD6E1C513A7600918228 /* XMPPMessage+XEP0045.m in Sources */,
@@ -1828,6 +1845,7 @@
 				8EB3BD471C513A7600918228 /* XMPPIQ.m in Sources */,
 				8EB3BD801C513A7600918228 /* XMPPIQ+XEP_0060.m in Sources */,
 				8EB3BD3C1C513A7600918228 /* XMPPAnonymousAuthentication.m in Sources */,
+				8EADE1711C58F54400C81452 /* LTCROtherCell.m in Sources */,
 				8EB3BDAF1C513A7600918228 /* DDASLLogger.m in Sources */,
 				8EB3BD761C513A7600918228 /* XMPPvCardTemp.m in Sources */,
 				8EB3BD5D1C513A7600918228 /* XMPPIQ+JabberRPC.m in Sources */,
@@ -1926,7 +1944,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1963,7 +1981,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1982,8 +2000,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LTCoolRunning/Classes/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				INFOPLIST_FILE = LTCoolRunning/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				INFOPLIST_FILE = "LTCoolRunning/Classes/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2007,8 +2025,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LTCoolRunning/Classes/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				INFOPLIST_FILE = LTCoolRunning/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				INFOPLIST_FILE = "LTCoolRunning/Classes/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

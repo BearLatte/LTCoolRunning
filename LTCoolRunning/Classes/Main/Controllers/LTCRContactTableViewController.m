@@ -12,8 +12,10 @@
 #import "UIImageView+LTCRImageView.h"
 #import "LTCRUserInfo.h"
 #import <CoreData/CoreData.h>
+#import "LTCRChatViewController.h"
+#import "MBProgressHUD+KR.h"
 
-@interface LTCRContactTableViewController () <NSFetchedResultsControllerDelegate>
+@interface LTCRContactTableViewController () <NSFetchedResultsControllerDelegate,UIAlertViewDelegate>
 //@property (nonatomic, strong) NSArray *contactsArray;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @end
@@ -28,9 +30,6 @@
     [super viewWillAppear:animated];
     //加载好友
     [self loadContact];
-}
-- (IBAction)clickButtonBackMainController:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 //- (void)loadContact {
 //    //获得上下文
@@ -68,20 +67,64 @@
         MYLog(@"读取数据错误:%@",error.userInfo);
     }
 }
+
+#pragma mark - 按钮的响应方法
+- (IBAction)clickButtonBackMainController:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)clickButtonItemAddContact:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"添加好友" message:@"输入好友用户名" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView show];
+//    [self presentViewController:alertView animated:YES completion:nil];
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加好友" message:@"请输入好友用户名" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *enterAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//    [alertController addAction:enterAction];
+//    [alertController addAction:cancelAction];
+//    [self presentViewController:alertController animated:YES completion:nil];
+}
+#pragma mark - UIAlert View Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            MYLog(@"000000000");
+            break;
+        case 1:
+            MYLog(@"%@",[alertView textFieldAtIndex:0].text);
+            [self addContactWithUserName:[alertView textFieldAtIndex:0].text];
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)addContactWithUserName:(NSString *)userName {
+    if (userName.length > 0) {
+        XMPPJID *contactJID = [XMPPJID jidWithString:[NSString stringWithFormat:@"%@@%@",userName,LTCRXMPPDOMAIN]];
+        [[LTCRXMPPTool sharedLTCRXMPPTool].xmppRoster subscribePresenceToUser:contactJID];
+    }else {
+        [MBProgressHUD showError:@"用户名不能为空"];
+        return;
+    }
+}
 #pragma mark - NSFechedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-}
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-}
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
-}
+//- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+//    [self.tableView beginUpdates];
+//}
+//- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+//    
+//}
+//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+//    
+//}
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
+    //[self.tableView endUpdates];
+    [self.tableView reloadData];
 }
-#pragma mark - Table view data source
+#pragma mark - Table view data source And Table View Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
@@ -120,6 +163,18 @@
     }
     
     return cell;
+}
+//选中某一行实现跳转
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    XMPPUserCoreDataStorageObject *contact = self.resultsController.fetchedObjects[indexPath.row];
+    [self performSegueWithIdentifier:@"chatSegue" sender:contact.jid];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    id destinationViewController = segue.destinationViewController;
+    if ([destinationViewController isKindOfClass:[LTCRChatViewController class]]) {
+        LTCRChatViewController *targetViewController = (LTCRChatViewController *)destinationViewController;
+        targetViewController.contactJID = sender;
+    }
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     XMPPUserCoreDataStorageObject *contactObject = self.resultsController.fetchedObjects[indexPath.row];
