@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageContentLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *messageImageView;
 
 
 @end

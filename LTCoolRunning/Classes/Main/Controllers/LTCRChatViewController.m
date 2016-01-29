@@ -11,25 +11,28 @@
 #import "LTCRUserInfo.h"
 #import "LTCRMeCell.h"
 #import "LTCROtherCell.h"
+#import "UIImageView+LTCRImageView.h"
 
 @interface LTCRChatViewController ()<NSFetchedResultsControllerDelegate,UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *hightForBottom;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *sendMessageTextField;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
-
 @end
 
 @implementation LTCRChatViewController
 #pragma mark - 视图控制器的生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = [self.contactJID user];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //设置cell自适应高度
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 80;
     [self loadMessage];
+    [self scrollToTableViewLastRow];
 }
 - (void)loadMessage {
     //获取上下文对象
@@ -74,6 +77,7 @@
     [UIView animateWithDuration:durations delay:0 options:options animations:^{
         [self.view layoutIfNeeded];
     } completion:nil];
+    [self scrollToTableViewLastRow];
 }
 - (void)closeKeyboard:(NSNotification *)notification {
     NSTimeInterval durations = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -82,6 +86,13 @@
     [UIView animateWithDuration:durations delay:0 options:options animations:^{
         [self.view layoutIfNeeded];
     } completion:nil];
+    [self scrollToTableViewLastRow];
+}
+- (void)scrollToTableViewLastRow {
+    if (self.resultsController.fetchedObjects.count != 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.resultsController.fetchedObjects.count - 1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 #pragma mark - 发送文本消息的响应方法
 - (IBAction)sendMessageTextMethod:(id)sender {
@@ -90,6 +101,7 @@
     XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:self.contactJID];
     [message addBody:messageText];
     [[LTCRXMPPTool sharedLTCRXMPPTool].xmppStream sendElement:message];
+    self.sendMessageTextField.text = nil;
     [self.sendMessageTextField resignFirstResponder];
 }
 - (IBAction)sendMessage:(id)sender {
@@ -111,7 +123,7 @@
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         imagePickerController.delegate = self;
-        imagePickerController.editing = YES;
+        //imagePickerController.editing = YES;
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -140,13 +152,15 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XMPPMessageArchiving_Message_CoreDataObject *messageObject = self.resultsController.fetchedObjects[indexPath.row];
-    if ([messageObject.streamBareJidStr isEqualToString:[LTCRUserInfo sharedLTCRUserInfo].jidStr]) {
+    if (messageObject.isOutgoing) {
         LTCRMeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"meCell"];
         [self configMeCell:cell withIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else {
         LTCROtherCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell"];
         [self configOtherCell:cell withIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -159,27 +173,73 @@
     }else {
         cell.headerImageView.image = [UIImage imageWithData:photo];
     }
+    [cell.headerImageView setImageView];
     cell.userNameLabel.text = [LTCRUserInfo sharedLTCRUserInfo].userName;
-    NSDate *date = [NSDate date];
     NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"hh:mm:ss"];
-    cell.messageTimeLabel.text = [formatter stringFromDate:date];
-    cell.messageContentLabel.text = messageObject.body;
+    [formatter setDateFormat:@"HH:mm:ss"];
+    cell.messageTimeLabel.text = [formatter stringFromDate:messageObject.timestamp];
+    //判断是图片消息还是文字消息
+    if ([messageObject.body hasPrefix:@"image:"]) {
+        NSString *base64Str = [messageObject.body substringFromIndex:6];
+        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        cell.messageImageView.image = [UIImage imageWithData:imageData];
+    }else {
+        cell.messageContentLabel.text = messageObject.body;
+    }
 }
 ///设置otherCell
 - (void)configOtherCell:(LTCROtherCell *)cell withIndexPath:(NSIndexPath *)indexPath {
     XMPPMessageArchiving_Message_CoreDataObject *messageObject = self.resultsController.fetchedObjects[indexPath.row];
-    NSData *photo = [[LTCRXMPPTool sharedLTCRXMPPTool].xmppvCardAvar photoDataForJID:[XMPPJID jidWithString:[LTCRUserInfo sharedLTCRUserInfo].jidStr]];
+    NSData *photo = [[LTCRXMPPTool sharedLTCRXMPPTool].xmppvCardAvar photoDataForJID:[XMPPJID jidWithString:messageObject.bareJidStr]];
     if (!photo) {
         cell.headerImageView.image = [UIImage imageNamed:@"Placeholder"];
     }else {
         cell.headerImageView.image = [UIImage imageWithData:photo];
     }
-    cell.userNameLabel.text = [LTCRUserInfo sharedLTCRUserInfo].userName;
-    NSDate *date = [NSDate date];
+    [cell.headerImageView setImageView];
+    cell.userNameLabel.text = [self.contactJID user];
     NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"hh:mm:ss"];
-    cell.messageTimeLabel.text = [formatter stringFromDate:date];
-    cell.messageContentLabel.text = messageObject.body;
+    [formatter setDateFormat:@"HH:mm:ss"];
+    cell.messageTimeLabel.text = [formatter stringFromDate:messageObject.timestamp];
+    if ([messageObject.body hasPrefix:@"image:"]) {
+        NSString *base64Str = [messageObject.body substringFromIndex:6];
+        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Str options:0];
+        cell.messageImageView.image = [UIImage imageWithData:imageData];
+    }else {
+         cell.messageContentLabel.text = messageObject.body;
+    }
+}
+#pragma mark - UIImage Picker Controller Delegate,UINavigation Controller Delegate
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    MYLog(@"image length:%ld",UIImagePNGRepresentation(image).length);
+    //生成缩略图片
+    UIImage *newImage = [self thumbnaiWithImage:image size:CGSizeMake(100, 100)];
+    MYLog(@"newImage length:%ld",UIImagePNGRepresentation(newImage).length);
+    MYLog(@"newImage2 length:%ld",UIImageJPEGRepresentation(newImage, 0.2).length);
+    //把图片包装成消息发送出去
+    [self sendImageMethodWithImage:newImage];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+//发送图片消息的方法
+- (void)sendImageMethodWithImage:(UIImage *)image {
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.2);
+    NSString *base64Str = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:self.contactJID];
+    [message addBody:[@"image:" stringByAppendingString:base64Str]];
+    [[LTCRXMPPTool sharedLTCRXMPPTool].xmppStream sendElement:message];
+}
+//生成缩略图的方法
+- (UIImage *)thumbnaiWithImage:(UIImage *)image size:(CGSize)size {
+    UIImage *newImage = nil;
+    if (nil == image) {
+        newImage = nil;
+    }else {
+        UIGraphicsBeginImageContext(size);
+        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+        newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return newImage;
 }
 @end
