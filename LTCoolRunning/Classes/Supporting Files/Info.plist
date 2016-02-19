@@ -16,8 +16,12 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>健康酷跑</string>
+	<key>CFBundleDisplayName</key>
+	<string>健康酷跑</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>iOS8允许定位</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>

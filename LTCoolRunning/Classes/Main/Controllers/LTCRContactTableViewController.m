@@ -30,6 +30,7 @@
     [super viewWillAppear:animated];
     //加载好友
     [self loadContact];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 //- (void)loadContact {
 //    //获得上下文

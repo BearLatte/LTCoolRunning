@@ -33,6 +33,12 @@
     self.tableView.estimatedRowHeight = 80;
     [self loadMessage];
     [self scrollToTableViewLastRow];
+    UITapGestureRecognizer *tapRG = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickCloseKeyboard)];
+    [self.tableView addGestureRecognizer:tapRG];
+}
+//点击tableView收回键盘
+- (void)clickCloseKeyboard {
+    [self.sendMessageTextField resignFirstResponder];
 }
 - (void)loadMessage {
     //获取上下文对象
