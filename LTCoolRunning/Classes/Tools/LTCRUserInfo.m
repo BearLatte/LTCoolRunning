@@ -14,4 +14,10 @@ singleton_implementation(LTCRUserInfo)
     NSString *jidStr = [NSString stringWithFormat:@"%@@%@",self.userName,LTCRXMPPDOMAIN];
     return jidStr;
 }
+/* 用户数据的沙盒读写 */
+- (void) saveKRUserInfoToSandBox
+{
+    [[NSUserDefaults  standardUserDefaults] setValue:self.userName forKey:@"userName"];
+    [[NSUserDefaults  standardUserDefaults] setValue:self.userPassword forKey:@"userPwd"];
+}
 @end

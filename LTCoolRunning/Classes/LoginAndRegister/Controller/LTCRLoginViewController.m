@@ -41,6 +41,8 @@
         self.userNameTextField.text = [LTCRUserInfo sharedLTCRUserInfo].userName;
         self.userPasswordTextField.text = [LTCRUserInfo sharedLTCRUserInfo].userPassword;
     }
+    self.userNameTextField.text = nil;
+    self.userPasswordTextField.text = nil;
 }
 //点击新浪登陆按钮的时候触发
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

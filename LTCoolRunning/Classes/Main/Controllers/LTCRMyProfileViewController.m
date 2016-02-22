@@ -49,4 +49,17 @@
         editMyProfileController.vCard = [LTCRXMPPTool sharedLTCRXMPPTool].xmppvCard.myvCardTemp;
     }
 }
+- (IBAction)logOut:(id)sender {
+    [[LTCRUserInfo sharedLTCRUserInfo] saveKRUserInfoToSandBox];
+    [[LTCRXMPPTool sharedLTCRXMPPTool] sendOffLine];
+    [LTCRUserInfo sharedLTCRUserInfo].jidStr = nil;
+    if ([LTCRUserInfo sharedLTCRUserInfo].sinaLoginAndRegister) {
+        [LTCRUserInfo sharedLTCRUserInfo].sinaLoginAndRegister = NO;
+        [LTCRUserInfo sharedLTCRUserInfo].userName = nil;
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil];
+    UIViewController *vc = storyboard.instantiateInitialViewController;
+    [UIApplication sharedApplication].keyWindow.rootViewController = vc;
+}
 @end

@@ -12,6 +12,7 @@
 @interface LTCRUserInfo : NSObject
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *userPassword;
+@property (nonatomic, strong) NSString *jidStr;
 singleton_interface(LTCRUserInfo);
 
 @property (nonatomic, strong) NSString *userRegisterName;
@@ -24,4 +25,8 @@ singleton_interface(LTCRUserInfo);
 
 ///获取当前用户jidStr
 - (NSString *)jidStr;
+
+/* 用户数据的沙盒读写 */
+- (void) saveKRUserInfoToSandBox;
+- (void) loadKRUserInfoFromSandBox;
 @end

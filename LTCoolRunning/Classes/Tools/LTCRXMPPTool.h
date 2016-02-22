@@ -47,4 +47,8 @@ singleton_interface(LTCRXMPPTool)
 - (void) userRegister:(LTCRXMPPResultBlock)block;
 /** 完成web注册请求的方法 */
 - (void)webRegiseterForServer;
+
+
+///退出时发送离线消息
+- (void) sendOffLine;
 @end

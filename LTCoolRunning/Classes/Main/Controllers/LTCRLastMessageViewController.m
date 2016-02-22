@@ -93,4 +93,7 @@
         targetViewController.contactJID = sender;
     }
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 45;
+}
 @end

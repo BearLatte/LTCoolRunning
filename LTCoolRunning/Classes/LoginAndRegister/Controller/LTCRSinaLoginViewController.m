@@ -75,11 +75,12 @@
 //处理注册状态
 - (void)handleRegisterResult:(LTCRXMPPResultType)type {
     switch (type) {
-        case LTCRXMPPResultTypeRegisterSuccess:
+        case LTCRXMPPResultTypeRegisterFailed:
+        case LTCRXMPPResultTypeRegisterSuccess:{
             [LTCRUserInfo sharedLTCRUserInfo].sinaLoginAndRegister = NO;
             [LTCRUserInfo sharedLTCRUserInfo].registerType = NO;
             [[LTCRXMPPTool sharedLTCRXMPPTool] webRegiseterForServer];
-        case LTCRXMPPResultTypeRegisterFailed: {
+         
             [LTCRUserInfo sharedLTCRUserInfo].userName = [LTCRUserInfo sharedLTCRUserInfo].userRegisterName;
             [LTCRUserInfo sharedLTCRUserInfo].userPassword = [LTCRUserInfo sharedLTCRUserInfo].userRegisterPassword;
             [[LTCRXMPPTool sharedLTCRXMPPTool] userLogin:^(LTCRXMPPResultType type) {
@@ -99,6 +100,7 @@
     switch (type) {
         case LTCRXMPPResultTypeLoginSuccess: {
             [MBProgressHUD showSuccess:@"登陆成功"];
+            [LTCRUserInfo sharedLTCRUserInfo].sinaLoginAndRegister = YES;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             [UIApplication sharedApplication].keyWindow.rootViewController = storyboard.instantiateInitialViewController;
             break;
